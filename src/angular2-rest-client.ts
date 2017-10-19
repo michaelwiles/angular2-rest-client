@@ -301,7 +301,7 @@ let buildMethodDeco = (method: any) =>
           let options = new RequestOptions({ method, url: baseUrl + requestUrl, headers, body, search: query, responseType }),
               request = new Request(options);
           // observable request
-          observable = <Observable<Response>> this.http.request(request).share();
+          observable = <Observable<any>> this.http.request(request).share().map(r => r.json());
           // plugin error handler if any
           let errorHandler = Reflect.getOwnMetadata(MetadataKeys.Error, target.constructor );
           errorHandler && (observable = <Observable<Response>>observable.catch( errorHandler ));
